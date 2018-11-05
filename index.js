@@ -41,24 +41,23 @@ app.get('/auth', async (req,res,next) => {
     const decoded = jwt.decode(req.query.authResponse)
 
     let JWTToken
-    let orgName
     const r = await db.getUser(decoded.username)
 
     if(!r.rowCount){
       // if no user, no need to create a record, just return example org
-      orgName = 'Example Org'
       JWTToken = jwt.sign({
         username: decoded.username,
         org_id: 1,
+        org_name: 'Example Org',
         role:'demo'
       }, JWT_SECRET, {expiresIn: '72h'})
     } else {
       // if user, return org id
       const user = r.rows[0]
-      orgName = user.org_name
       JWTToken = jwt.sign({
         username: decoded.username,
         org_id: user.org_id,
+        org_name: user.org_name,
         role:user.role
       }, JWT_SECRET, {expiresIn: '72h'})
     }
@@ -66,8 +65,7 @@ app.get('/auth', async (req,res,next) => {
     return res.status(200).json({
       message: 'Welcome to VIKO',
       token: JWTToken,
-      username: decoded.username.split('.')[0],
-      org_name: orgName
+      username: decoded.username.split('.')[0]
     })
 
   } else {
