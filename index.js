@@ -49,7 +49,7 @@ app.get('/auth', async (req,res,next) => {
         username: decoded.username,
         org_id: 1,
         org_name: 'Example Org',
-        role:'demo'
+        role:'user'
       }, JWT_SECRET, {expiresIn: '72h'})
     } else {
       // if user, return org id
