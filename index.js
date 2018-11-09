@@ -58,7 +58,7 @@ app.get('/auth', async (req,res,next) => {
         username: decoded.username,
         org_id: user.org_id,
         org_name: user.org_name,
-        role:user.role
+        role: user.role
       }, JWT_SECRET, {expiresIn: '72h'})
     }
 
@@ -73,8 +73,6 @@ app.get('/auth', async (req,res,next) => {
   }
 
 })
-
-
 
 
 
