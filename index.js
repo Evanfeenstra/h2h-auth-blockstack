@@ -75,5 +75,23 @@ app.get('/auth', async (req,res,next) => {
 
 })
 
+app.get('/demo_auth', async (req,res,next) => {
+  console.log("/demo_auth")
+
+  const JWTToken = jwt.sign({
+    username: 'Demo User',
+    org_id: 1,
+    org_name: 'Demo Org',
+    role:'user'
+  }, JWT_SECRET, {expiresIn: '72h'})
+
+  return res.status(200).json({
+    message: 'Welcome to VIKO',
+    token: JWTToken,
+    username: 'Demo User'
+  })
+
+})
+
 
 
