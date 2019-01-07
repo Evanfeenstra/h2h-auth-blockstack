@@ -75,6 +75,10 @@ app.get('/auth', async (req,res,next) => {
 
 })
 
+app.get('/ping', async (req,res,next) => {
+  return res.status(200).json('pong')
+})
+
 app.get('/demo_auth', async (req,res,next) => {
   console.log("/demo_auth")
 
